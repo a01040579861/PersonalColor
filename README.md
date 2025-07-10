@@ -1,12 +1,56 @@
-# React + Vite
+![퍼스널컬러 로고](public/personal_color.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 퍼스널컬러 자가진단 모던 웹앱
 
-Currently, two official plugins are available:
+이 프로젝트는 **퍼스널컬러 자가진단**을 위한 모던 웹앱입니다. React, Vite, styled-components를 기반으로 빠르고 세련된 UI/UX를 제공합니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 주요 특징
 
-## Expanding the ESLint configuration
+- 퍼스널컬러(봄웜, 여름쿨, 가을웜, 겨울쿨) 자가진단 설문
+- 랜덤 7문항, 단계별 진행, 답변 선택 시 자동 진행
+- 내추럴/뉴트럴톤의 고급스러운 디자인
+- 반응형, 모바일/PC 모두 최적화
+- styled-components 기반의 컴포넌트 스타일링
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 폴더 구조
+
+```
+├── public/
+│   ├── personal_logo.png   # 프로젝트 대표 로고
+│   └── personal_color.png  # 프로젝트 이미지
+├── src/
+│   ├── components/         # Question, ProgressBar, Result 등 UI 컴포넌트
+│   ├── data/questions.js   # 퍼스널컬러 설문 데이터
+│   ├── styles/             # GlobalStyle, theme.js 등 스타일
+│   ├── App.jsx             # 메인 앱
+│   └── ...
+├── package.json
+└── ...
+```
+
+## 기술 스택
+
+- React (Vite 기반)
+- styled-components
+- JavaScript (ES6+)
+
+## 실행 방법
+
+1. 의존성 설치
+   ```bash
+   npm install
+   ```
+2. 개발 서버 실행
+   ```bash
+   npm run dev
+   ```
+3. 브라우저에서 `http://localhost:5173` 접속
+
+## 기타
+
+- 질문 데이터 및 스타일은 자유롭게 커스터마이즈 가능
+- 결과 페이지(퍼스널컬러 진단 결과)는 src/components/Result.jsx에서 구현
+
+---
+
+아직 개발중입니다!
