@@ -7,6 +7,7 @@ import questions from "./data/questions";
 import { useState } from "react";
 import ProgressBar from "./components/ProgressBar";
 import Result from "./components/Result";
+import ColorPalette from "./components/ColorPalette";
 
 const Bg = styled.div`
   min-height: 100vh;
@@ -16,25 +17,70 @@ const Bg = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: -2;
   overflow: hidden;
-`;
-
-const CenterBox = styled.div`
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 28px;
-  box-shadow: 0 6px 32px rgba(108, 99, 255, 0.1);
-  padding: 3.5rem 2.2rem 2.7rem 2.2rem;
-  max-width: 480px;
-  width: 92vw;
-  margin: 4.5rem auto;
+  background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 600px) {
-    padding: 2.2rem 0.7rem 1.7rem 0.7rem;
-    border-radius: 16px;
-    margin: 2.2rem auto;
+  justify-content: flex-start;
+  @media (max-width: 1024px) {
+    min-height: 100vh;
+  }
+`;
+
+const PaletteBg = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+`;
+
+const CenterBox = styled.div`
+  background: rgba(255, 255, 255, 0.9); /* theme surface에 투명도 적용 */
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  box-shadow: ${({ theme }) => theme.shadows.card};
+  padding: 4rem 2.5rem 3rem 2.5rem;
+  max-width: 480px;
+  width: 92vw;
+  margin: 7rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  @media (max-width: 1920px) {
+    max-width: 480px;
+    padding: 4rem 2.2rem 2.7rem 2.2rem;
+  }
+  @media (max-width: 1440px) {
+    max-width: 440px;
+    padding: 3.2rem 1.7rem 2.2rem 1.7rem;
+  }
+  @media (max-width: 1024px) {
+    max-width: 380px;
+    padding: 2.5rem 1.2rem 1.5rem 1.2rem;
+  }
+  @media (max-width: 768px) {
+    max-width: 330px;
+    padding: 1.5rem 0.7rem 1rem 0.7rem;
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    margin: 6rem auto;
+  }
+  @media (max-width: 500px) {
+    padding: 1.1rem 0.2rem 0.5rem 0.2rem;
+    border-radius: ${({ theme }) => theme.borderRadius.sm};
+    margin: 10rem auto;
+  }
+  @media (max-width: 375px) {
+    padding: 0.7rem 0.1rem 0.3rem 0.1rem;
   }
 `;
 
@@ -46,6 +92,21 @@ const Title = styled.h1`
   letter-spacing: -1.5px;
   text-align: center;
   line-height: 1.18;
+  @media (max-width: 1440px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 1024px) {
+    font-size: 1.7rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+  @media (max-width: 500px) {
+    font-size: 1.1rem;
+  }
+  @media (max-width: 375px) {
+    font-size: 1rem;
+  }
 `;
 
 const SubText = styled.p`
@@ -54,6 +115,22 @@ const SubText = styled.p`
   margin-bottom: 2.7rem;
   text-align: center;
   line-height: 1.6;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  @media (max-width: 1440px) {
+    font-size: 0.95rem;
+  }
+  @media (max-width: 1024px) {
+    font-size: 0.85rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 375px) {
+    font-size: 0.65rem;
+  }
 `;
 
 const StartButton = styled.button`
@@ -81,6 +158,26 @@ const StartButton = styled.button`
       ${({ theme }) => theme.colors.primary} 100%
     );
   }
+  @media (max-width: 1440px) {
+    font-size: 1rem;
+    padding: 1rem 2.2rem;
+  }
+  @media (max-width: 1024px) {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.7rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.2rem;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.85rem;
+    padding: 0.7rem 0.9rem;
+  }
+  @media (max-width: 375px) {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.7rem;
+  }
 `;
 
 const NavButtons = styled.div`
@@ -90,11 +187,21 @@ const NavButtons = styled.div`
   max-width: 480px;
   margin: 2.2rem auto 0 auto;
   gap: 1rem;
+  @media (max-width: 1024px) {
+    max-width: 380px;
+    gap: 0.7rem;
+  }
+  @media (max-width: 768px) {
+    max-width: 320px;
+    gap: 0.5rem;
+  }
+  @media (max-width: 500px) {
+    gap: 0.3rem;
+  }
 `;
 
 const NavButton = styled.button`
   flex: 1;
-  /* max-width: 120px; */
   padding: 1rem 0;
   font-size: 1.05rem;
   font-weight: 600;
@@ -117,6 +224,27 @@ const NavButton = styled.button`
       disabled
         ? theme.colors.border
         : `linear-gradient(90deg, ${theme.colors.accent} 40%, ${theme.colors.primary} 100%)`};
+  }
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  @media (max-width: 1440px) {
+    font-size: 1rem;
+    padding: 0.9rem 0;
+  }
+  @media (max-width: 1024px) {
+    font-size: 0.95rem;
+    padding: 0.8rem 0;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.7rem 0;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.85rem;
+    padding: 0.6rem 0;
+  }
+  @media (max-width: 375px) {
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
   }
 `;
 
@@ -171,7 +299,11 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Bg />
+      <Bg>
+        <PaletteBg>
+          <ColorPalette />
+        </PaletteBg>
+      </Bg>
       <CenterBox>
         {!showQuiz && !showResult ? (
           <>

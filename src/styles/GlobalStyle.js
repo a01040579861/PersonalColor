@@ -9,15 +9,17 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
     font-family: 'Pretendard', 'Noto Sans KR', Arial, sans-serif;
-    background: #000;
+    /* background: #000; */
     color: #fff;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
   body {
     min-height: 100vh;
     background: linear-gradient(120deg, #f7f8fa 0%, #e3e6f3 100%);
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
   }
   a {
     color: inherit;

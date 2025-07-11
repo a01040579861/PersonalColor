@@ -7,7 +7,7 @@ const BarWrapper = styled.div`
   margin: 0 auto 2.2rem auto;
   background: none;
   position: relative;
-  height: 22px;
+  height: 12px;
   display: flex;
   align-items: center;
 `;
